@@ -1,0 +1,38 @@
+1. What is the Node.js Event Loop?
+
+    The Event Loop is a mechanism in Node.js that allows it to handle asynchronous operations without blocking
+     the main thread. It checks if there are completed tasks and moves their callbacks to the call stack to be executed
+
+2. What is Libuv and What Role Does It Play in Node.js?
+
+    Libuv is a library used by Node.js to handle asynchronous operations
+    It manages the event loop, thread pool, file system operations,
+    and networking, which helps Node.js execute non-blocking code
+
+3. How Does Node.js Handle Asynchronous Operations Under the Hood?
+
+    When Node.js runs an asynchronous operation,it does not wait for it to finish
+    It sends the task to Libuv, which handles it using the operating system or the thread pool
+    After finishing, the callback is added to the event queue, and the event loop executes it
+
+4. What is the Difference Between the Call Stack, Event Queue, and Event Loop in Node.js?
+
+    The Call Stack stores the functions that are currently being executed
+    The Event Queue stores callbacks from completed asynchronous operations waiting to be executed
+    The Event Loop checks the call stack and moves callbacks from the event queue to the call stack when the stack is empty
+
+5. What is the Node.js Thread Pool and How to Set the Thread Pool Size?
+
+    The Thread Pool is a group of threads managed by Libuv that handles some asynchronous tasks like file system operations, encryption, and compression
+    The default size is 4 threads, and it can be changed using:
+
+    UV_THREADPOOL_SIZE=8 node app.js
+
+6. How Does Node.js Handle Blocking and Non-Blocking Code Execution?
+
+    Node.js executes non-blocking code by starting the operation and continuing to run other code while waiting for the result 
+    Blocking code stops the main thread until the operation is completed, which can slow down the application
+    Example:
+
+    fs.readFile()  Non-blocking
+    fs.readFileSync()  Blocking
